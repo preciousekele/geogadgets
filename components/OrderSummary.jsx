@@ -36,7 +36,7 @@ const OrderSummary = () => {
   const createOrder = async () => {
     try {
 
-      if (!selectedAddress){
+      if ( !selectedAddress ){
         return toast.error('Please select an address')
       }
 

@@ -15,7 +15,7 @@ export async function POST(request){
             return NextResponse.json({ success: false, message: "Invalid data" });
         }
 
-        //calculate amount
+        //calculate amount using items
         const amount = await items.reduce(async (acc, item) => {
             const product = await Product.findById(item.product);
             return await acc + product.offerPrice * item.quantity;
