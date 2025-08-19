@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { assets } from "@/assets/assets";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import Loading from "@/components/Loading";
 import { useAppContext } from "@/context/AppContext";
 import React from "react";
+import { formatNaira } from "@/utils/nairaprice/FormatPrice";
 
 const Product = () => {
 
@@ -85,23 +85,23 @@ const Product = () => {
                         {productData.description}
                     </p>
                     <p className="text-3xl font-medium mt-6">
-                        ₦{productData.offerPrice}
-                        <span className="text-base font-normal text-gray-800/60 line-through ml-2">
+                        {formatNaira(productData.offerPrice)}
+                        {/* <span className="text-base font-normal text-gray-800/60 line-through ml-2">
                             ₦{productData.price}
-                        </span>
+                        </span> */}
                     </p>
                     <hr className="bg-gray-600 my-6" />
                     <div className="overflow-x-auto">
                         <table className="table-auto border-collapse w-full max-w-72">
                             <tbody>
-                                <tr>
+                                {/* <tr>
                                     <td className="text-gray-600 font-medium">Brand</td>
                                     <td className="text-gray-800/50 ">Generic</td>
                                 </tr>
                                 <tr>
                                     <td className="text-gray-600 font-medium">Color</td>
                                     <td className="text-gray-800/50 ">Multi</td>
-                                </tr>
+                                </tr> */}
                                 <tr>
                                     <td className="text-gray-600 font-medium">Category</td>
                                     <td className="text-gray-800/50">
@@ -135,7 +135,6 @@ const Product = () => {
                 </button>
             </div>
         </div>
-        <Footer />
     </>
     ) : <Loading />
 };

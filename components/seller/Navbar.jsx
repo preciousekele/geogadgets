@@ -12,9 +12,9 @@ const Navbar = () => {
       >
         <span className="text-yellow-700">G</span>EO GADGETS
       </div>
-      <button className="bg-gray-600 text-white px-5 py-2 sm:px-7 sm:py-2 rounded-full text-xs sm:text-sm">
+      {/* <button className="bg-gray-600 text-white px-5 py-2 sm:px-7 sm:py-2 rounded-full text-xs sm:text-sm">
         Logout
-      </button>
+      </button> */}
     </div>
   );
 };

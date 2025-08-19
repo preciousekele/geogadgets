@@ -28,7 +28,7 @@ export const AppContextProvider = (props) => {
     try {
       const { data } = await axios.get("/api/product/list");
 
-      if (data.success){
+      if (data.success) {
         setProducts(data.products);
       } else {
         toast.error(data.message);
@@ -69,13 +69,14 @@ export const AppContextProvider = (props) => {
       cartData[itemId] = 1;
     }
     setCartItems(cartData);
-    if ( user ) {
+    if (user) {
       try {
-        const token = await getToken()
+        const token = await getToken();
 
         //calling api for updating cart
-        await axios.post("/api/cart/update", 
-          { cartData }, 
+        await axios.post(
+          "/api/cart/update",
+          { cartData },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success("Item added to cart");
@@ -93,13 +94,14 @@ export const AppContextProvider = (props) => {
       cartData[itemId] = quantity;
     }
     setCartItems(cartData);
-    if ( user ) {
+    if (user) {
       try {
-        const token = await getToken()
+        const token = await getToken();
 
         //calling api for updating cart qty
-        await axios.post("/api/cart/update", 
-          { cartData }, 
+        await axios.post(
+          "/api/cart/update",
+          { cartData },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success("Cart updated");
@@ -127,7 +129,7 @@ export const AppContextProvider = (props) => {
         totalAmount += itemInfo.offerPrice * cartItems[items];
       }
     }
-    return Math.floor(totalAmount * 100) / 100;
+    return totalAmount; 
   };
 
   useEffect(() => {

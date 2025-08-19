@@ -5,9 +5,13 @@ import { useAppContext } from '@/context/AppContext';
 import { formatNaira } from '@/utils/nairaprice/FormatPrice';
 
 const ProductCard = ({ product }) => {
-
-    const { router } = useAppContext()
-
+    const { router, addToCart } = useAppContext()
+    
+    const handleAddToCart = (e) => {
+        e.stopPropagation(); 
+        addToCart(product._id);
+    }
+    
     return (
         <div
             onClick={() => { router.push('/product/' + product._id); scrollTo(0, 0) }}
@@ -21,15 +25,17 @@ const ProductCard = ({ product }) => {
                     width={800}
                     height={800}
                 />
-                <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
+                <button 
+                    onClick={handleAddToCart}
+                    className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-gray-50 transition-colors"
+                >
                     <Image
-                        className="h-3 w-3"
+                        className="h-4 w-4"
                         src={assets.heart_icon}
-                        alt="heart_icon"
+                        alt="Add to cart"
                     />
                 </button>
             </div>
-
             <p className="md:text-base font-medium pt-2 w-full truncate">{product.name}</p>
             <p className="w-full text-xs text-gray-500/70 max-sm:hidden truncate">{product.description}</p>
             <div className="flex items-center gap-2">
@@ -49,7 +55,6 @@ const ProductCard = ({ product }) => {
                     ))}
                 </div> */}
             </div>
-
             <div className="flex items-end justify-between w-full mt-1">
                 <p className="text-base font-medium">{formatNaira(product.offerPrice)}</p>
                 <button className=" max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 transition">

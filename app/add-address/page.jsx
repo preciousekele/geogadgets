@@ -1,7 +1,6 @@
 "use client";
 import { assets } from "@/assets/assets";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Image from "next/image";
 import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
@@ -22,8 +21,26 @@ const AddAddress = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    
+    // Basic client-side validation
+    const requiredFields = ['fullName', 'phoneNumber', 'pincode', 'area', 'city', 'state'];
+    const emptyFields = requiredFields.filter(field => !address[field]?.trim());
+    
+    if (emptyFields.length > 0) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+    
     try {
       const token = await getToken();
+
+      // Check if user is authenticated
+      if (!token) {
+        toast.error("Please sign up or log in to continue");
+        // Optionally redirect to sign-in page
+        // router.push("/sign-in");
+        return;
+      }
 
       //api call to add address
       const { data } = await axios.post(
@@ -39,7 +56,20 @@ const AddAddress = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message);
+      // Handle specific error responses from the server
+      const errorData = error.response?.data;
+      
+      if (errorData?.requiresAuth || error.response?.status === 401) {
+        toast.error("Please sign up or log in to continue");
+        // Optionally redirect to sign-in page
+        // router.push("/sign-in");
+      } else if (error.response?.status === 429) {
+        toast.error("You have reached the maximum number of addresses allowed");
+      } else if (errorData?.message) {
+        toast.error(errorData.message);
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     }
   };
 
@@ -122,7 +152,6 @@ const AddAddress = () => {
           alt="my_location_image"
         />
       </div>
-      <Footer />
     </>
   );
 };

@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Loading from "@/components/Loading";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { formatNaira } from "@/utils/nairaprice/FormatPrice";
 
 const MyOrders = () => {
 
@@ -76,7 +76,7 @@ const MyOrders = () => {
                                         <span>{order.address.phoneNumber}</span>
                                     </p>
                                 </div>
-                                <p className="font-medium my-auto">{currency}{order.amount}</p>
+                                <p className="font-medium my-auto">{formatNaira(order.amount)}</p>
                                 <div>
                                     <p className="flex flex-col">
                                         <span>Method : COD</span>
@@ -89,7 +89,6 @@ const MyOrders = () => {
                     </div>)}
                 </div>
             </div>
-            <Footer />
         </>
     );
 };

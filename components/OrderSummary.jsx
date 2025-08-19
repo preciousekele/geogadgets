@@ -1,11 +1,12 @@
 import { useAppContext } from "@/context/AppContext";
+import { formatNaira } from "@/utils/nairaprice/FormatPrice";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const OrderSummary = () => {
 
-  const { currency, router, getCartCount, getCartAmount, getToken, user, cartItems, setCartItems } = useAppContext()
+  const { router, getCartCount, getCartAmount, getToken, user, cartItems, setCartItems } = useAppContext()
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -125,17 +126,16 @@ const OrderSummary = () => {
         </div>
 
         <div>
-          <label className="text-base font-medium uppercase text-gray-600 block mb-2">
-            Promo Code
+          <label className="text-base font-medium text-gray-600 block mb-2">
+            Other information...
           </label>
           <div className="flex flex-col items-start gap-3">
             <input
               type="text"
-              placeholder="Enter promo code"
               className="flex-grow w-full outline-none p-2.5 text-gray-600 border"
             />
-            <button className="bg-orange-600 text-white px-9 py-2 hover:bg-orange-700">
-              Apply
+            <button className="bg-orange-600 text-white px-9 py-2 hover:bg-orange-700 rounded-3xl ">
+              Add
             </button>
           </div>
         </div>
@@ -145,19 +145,19 @@ const OrderSummary = () => {
         <div className="space-y-4">
           <div className="flex justify-between text-base font-medium">
             <p className="uppercase text-gray-600">Items {getCartCount()}</p>
-            <p className="text-gray-800">{currency}{getCartAmount()}</p>
+            <p className="text-gray-800">{formatNaira(getCartAmount())}</p>
           </div>
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <p className="text-gray-600">Shipping Fee</p>
-            <p className="font-medium text-gray-800">Free</p>
-          </div>
-          <div className="flex justify-between">
+            <p className="font-medium text-gray-800"></p>
+          </div> */}
+          {/* <div className="flex justify-between">
             <p className="text-gray-600">Tax (2%)</p>
             <p className="font-medium text-gray-800">{currency}{Math.floor(getCartAmount() * 0.02)}</p>
-          </div>
+          </div> */}
           <div className="flex justify-between text-lg md:text-xl font-medium border-t pt-3">
             <p>Total</p>
-            <p>{currency}{getCartAmount() + Math.floor(getCartAmount() * 0.02)}</p>
+            <p>{formatNaira(getCartAmount())}</p>
           </div>
         </div>
       </div>

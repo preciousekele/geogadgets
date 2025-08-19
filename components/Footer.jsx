@@ -27,7 +27,7 @@ const Footer = () => {
                   About us
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a className="hover:text-gray-800 transition" href="#">
                   Contact us
                 </a>
@@ -36,7 +36,7 @@ const Footer = () => {
                 <a className="hover:text-gray-800 transition" href="#">
                   Privacy policy
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -46,12 +46,12 @@ const Footer = () => {
             <h2 className="font-medium text-gray-900 mb-5">Get in touch</h2>
             <div className="text-sm space-y-2">
               <p>+234-8101-567-8990</p>
-              <p>geogadget@gmail.com</p>
+              <p>gideonekele08@gmail.com</p>
             </div>
           </div>
         </div>
       </div>
-      <p className="py-4 text-center text-xs md:text-sm">
+      <p className="py-4 text-center text-gray-300 text-xs md:text-sm">
         Copyright 2025 © presh.dev All Right Reserved.
       </p>
     </footer>

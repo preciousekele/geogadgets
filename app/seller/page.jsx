@@ -131,6 +131,7 @@ const AddProduct = () => {
               <option value="Watch">Watch</option>
               <option value="Smartphone">Smartphone</option>
               <option value="Laptop">Laptop</option>
+              <option value="Laptop">Gaming Console</option>
               <option value="Camera">Camera</option>
               <option value="Accessories">Accessories</option>
             </select>
@@ -168,7 +169,6 @@ const AddProduct = () => {
           ADD
         </button>
       </form>
-      {/* <Footer /> */}
     </div>
   );
 };
