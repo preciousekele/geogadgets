@@ -9,10 +9,7 @@ const Footer = () => {
             <span className="text-yellow-800">G</span>EO GADGETS
           </div>
           <p className="mt-6 text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Est et,
-            exercitationem esse tempora quam nisi dicta temporibus id quos
-            sapiente error, velit adipisci suscipit vel accusamus eligendi odit
-            hic? Enim?
+            11/Computer Village Oshitelu Street, Ikeja, Lagos State.
           </p>
         </div>
 
