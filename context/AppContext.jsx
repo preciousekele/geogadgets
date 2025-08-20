@@ -39,28 +39,35 @@ export const AppContextProvider = (props) => {
   };
 
   const fetchUserData = async () => {
-    try {
-      if (user?.publicMetadata?.role === "seller") {
-        setIsSeller(true);
-      }
-
-      const token = await getToken();
-
-      const { data } = await axios.get("/api/user/data", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (data.success) {
-        setUserData(data.user);
-        setCartItems(data.user.cartItems);
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
+  try {
+    // Only proceed if user is authenticated
+    if (!user) {
+      return; // Exit early if no user is logged in
     }
-  };
 
+    if (user?.publicMetadata?.role === "seller") {
+      setIsSeller(true);
+    }
+    
+    const token = await getToken();
+    const { data } = await axios.get("/api/user/data", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    
+    if (data.success) {
+      setUserData(data.user);
+      setCartItems(data.user.cartItems);
+    } else {
+      toast.error(data.message);
+    }
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    // Only show toast for actual errors, not when user isn't logged in
+    if (user) {
+      toast.error("Failed to fetch user data");
+    }
+  }
+};
   const addToCart = async (itemId) => {
     let cartData = structuredClone(cartItems);
     if (cartData[itemId]) {
