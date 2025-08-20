@@ -16,7 +16,7 @@ const Banner = () => {
           Level Up Your Gaming Experience
         </h2>
         <p className="max-w-[343px] font-medium text-gray-800/60">
-          From immersive sound to precise controls everything you need to win
+          Immersive sound. Precise control. Pure victory
         </p>
         <Link href="/all-products?category=Gaming%20Console">
           <button className="group flex items-center justify-center gap-1 px-4 py-2.5 bg-orange-600 rounded text-white">
