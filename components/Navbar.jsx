@@ -11,15 +11,24 @@ const Navbar = () => {
   const { isSeller, router, user } = useAppContext();
   const { openSignIn} = useClerk();
 
-  // Auto-prompt sign in after 5 seconds if user is not authenticated
+  // Auto-prompt sign in after 5 seconds when app starts (only once per session)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!user) {
-        openSignIn();
-      }
-    }, 6000); 
+    if (user) return; 
 
-    return () => clearTimeout(timer);
+    const PROMPT_DELAY = 5000; 
+    const hasPromptedThisSession = sessionStorage.getItem('hasPromptedSignIn');
+    
+    // Only prompt if we haven't already prompted in this session
+    if (!hasPromptedThisSession) {
+      const timer = setTimeout(() => {
+        if (!user) { 
+          openSignIn();
+          sessionStorage.setItem('hasPromptedSignIn', 'true');
+        }
+      }, PROMPT_DELAY);
+
+      return () => clearTimeout(timer);
+    }
   }, [user, openSignIn]);
 
   return (
@@ -31,8 +40,8 @@ const Navbar = () => {
         alt="logo"
       /> */}
       <div className="logo text-1xl font-bold">
-  <span className="text-yellow-700">G</span>EO GADGETS
-</div>
+        <span className="text-yellow-700">G</span>EO GADGETS
+      </div>
       <div className="flex items-center gap-4 lg:gap-8 max-md:hidden">
         <Link href="/" className="hover:text-gray-900 transition text-sm">
           Home
