@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
       </div>
       <p className="py-4 text-center text-gray-300 text-xs md:text-sm">
-        Copyright 2025 © preciousekele All Right Reserved.
+        Developed by Precious Ekele
       </p>
     </footer>
   );
