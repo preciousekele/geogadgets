@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
 import { assets, BagIcon, BoxIcon, CartIcon, HomeIcon} from "@/assets/assets";
 import Link from "next/link"
 import { useAppContext } from "@/context/AppContext";
@@ -10,6 +10,17 @@ const Navbar = () => {
 
   const { isSeller, router, user } = useAppContext();
   const { openSignIn} = useClerk();
+
+  // Auto-prompt sign in after 5 seconds if user is not authenticated
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!user) {
+        openSignIn();
+      }
+    }, 6000); 
+
+    return () => clearTimeout(timer);
+  }, [user, openSignIn]);
 
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-100 text-gray-700">
@@ -57,7 +68,7 @@ const Navbar = () => {
             <UserButton.Action label="My Orders" labelIcon={<BagIcon />} onClick={() => router.push('/my-orders')}/>
           </UserButton.MenuItems>
         </UserButton>
-        </> : <button onClick={openSignIn} className="flex items-center gap-2 hover:text-gray-900 transition">
+        </> : <button onClick={openSignIn} className="flex items-center gap-2 hover:text-gray-900 transition text-sm">
           <Image src={assets.user_icon} alt="user icon" />
           Account
         </button> }
